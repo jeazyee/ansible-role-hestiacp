@@ -1,2 +1,30 @@
 ---
 # tasks file for hestiacp
+- name: "update and upgrade packages"
+  become: true
+  apt:
+    upgrade: yes
+
+- name: "get hestiacp install script"
+  become: true
+  get_url: url=https://raw.githubusercontent.com/hestiacp/hestiacp/release/install/hst-install.sh dest=/root/hst-install.sh
+
+- name: "start installation"
+  become: true
+  command: "bash /root/hst-install.sh --interactive no --email {{ hestia_admin_mail }} --password {{ hestia_admin_pw }} --hostname {{ server_hostname }} --apache {{ hestia_install_flags.apache }} --phpfpm {{ hestia_install_flags.phpfpm }} --multiphp {{ hestia_install_flags.multiphp }} --vsftpd {{ hestia_install_flags.vsftpd }} --proftpd {{ hestia_install_flags.proftpd }} --named {{ hestia_install_flags.named }} --mysql {{ hestia_install_flags.mysql }} --postgresql {{ hestia_install_flags.postgresql }} --exim {{ hestia_install_flags.exim }} --dovecot {{ hestia_install_flags.dovecot }} --clamav {{ hestia_install_flags.clamav }} --spamassassin {{ hestia_install_flags.spamassassin }} --iptables {{ hestia_install_flags.iptables }} --fail2ban {{ hestia_install_flags.fail2ban }} --quota {{ hestia_install_flags.quota }} --api {{ hestia_install_flags.api }} -f"
+  async: 1000
+  poll: 15
+  args: 
+    creates: /usr/local/hestia
+  notify: reboot server
+
+- name: "add additional PHP versions"
+  become: true
+  command: bash -l /usr/local/hestia/bin/v-add-web-php {{ item }}
+  loop: "{{ hestia_additional_php }}"
+  when: hestia_install_flags.multiphp == 'no'
+
+- name: "add letsencrypt for {{ server_hostname }}"
+  become: true
+  command: bash -l /usr/local/hestia/bin/v-add-letsencrypt-host
+  when: hestia_generate_ssl

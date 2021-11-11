@@ -1,2 +1,40 @@
 ---
-# defaults file for hestiacp
+# server configs
+# the hostname must already have been setup with an 'A' record
+server_hostname: server.example.com
+
+# hestia admin configs
+# recommended to put this into vaul.yml of host_vars or group_vars
+# Initial details of hestiacp admin user
+hestia_admin_mail: admin@example.com
+hestia_admin_pw: P@ssword123
+
+# Install flags for hestiacp install script
+# values 'yes' or 'no'
+hestia_install_flags: 
+  apache: 'no'
+  phpfpm: 'yes'
+  multiphp: 'no'
+  vsftpd: 'yes'
+  proftpd: 'no'
+  named: 'no'
+  mysql: 'yes'
+  postgresql: 'no'
+  exim: 'no'
+  dovecot: 'no'
+  clamav: 'no'
+  spamassassin: 'no'
+  iptables: 'yes'
+  fail2ban: 'yes'
+  quota: 'yes'
+  api: 'yes'
+
+# Install additional php versions
+# default is 7.4 - wich already gets installed
+# only runs installation when install flag multiplephp is set to 'no'
+hestia_additional_php:
+  - 7.3
+  - 8.0
+
+# should hestia generate a letsencrypt cert for the hostname
+hestia_generate_ssl: false
