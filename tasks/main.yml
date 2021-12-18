@@ -22,6 +22,8 @@
   become: true
   command: bash -l /usr/local/hestia/bin/v-add-web-php {{ item }}
   loop: "{{ hestia_additional_php }}"
+  args:
+    creates: /usr/bin/php{{ item }}
   when: hestia_install_flags.multiphp == 'no'
 
 - name: "add letsencrypt for {{ server_hostname }}"

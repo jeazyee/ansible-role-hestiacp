@@ -29,12 +29,13 @@ hestia_install_flags:
   quota: 'yes'
   api: 'yes'
 
-# Install additional php versions
-# default is 7.4 - wich already gets installed
-# only runs installation when install flag multiplephp is set to 'no'
+# Install additional php versions.
+# Checks if it is already is installed, so you can list all desired php versions.
+# Only gets installed when installer_flag is set to: --multiplephp no
 hestia_additional_php:
-  - 7.3
+  - 7.4
   - 8.0
+  - 8.1
 
 # should hestia generate a letsencrypt cert for the hostname
 hestia_generate_ssl: false
