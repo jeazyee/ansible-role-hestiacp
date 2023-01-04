@@ -43,12 +43,15 @@ Configurations as in defaults/main.yml
       postgresql: 'no'
       exim: 'no'
       dovecot: 'no'
+      sieve: 'no'
       clamav: 'no'
       spamassassin: 'no'
       iptables: 'yes'
       fail2ban: 'yes'
       quota: 'yes'
       api: 'yes'
+      port: '8083'
+      lang: 'en'
 
     # Install additional php versions.
     # Checks if it is already is installed, so you can list all desired php versions.
