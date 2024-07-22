@@ -12,8 +12,8 @@
 - name: "start installation"
   become: true
   command: "bash /root/hst-install.sh --interactive no --email {{ hestia_admin_mail }} --password {{ hestia_admin_pw }} --hostname {{ server_hostname }} --apache {{ hestia_install_flags.apache }} --phpfpm {{ hestia_install_flags.phpfpm }} --multiphp {{ hestia_install_flags.multiphp }} --vsftpd {{ hestia_install_flags.vsftpd }} --proftpd {{ hestia_install_flags.proftpd }} --named {{ hestia_install_flags.named }} --mysql {{ hestia_install_flags.mysql }} --postgresql {{ hestia_install_flags.postgresql }} --exim {{ hestia_install_flags.exim }} --dovecot {{ hestia_install_flags.dovecot }} --sieve {{ hestia_install_flags.sieve }} --clamav {{ hestia_install_flags.clamav }} --spamassassin {{ hestia_install_flags.spamassassin }} --iptables {{ hestia_install_flags.iptables }} --fail2ban {{ hestia_install_flags.fail2ban }} --quota {{ hestia_install_flags.quota }} --api {{ hestia_install_flags.api }} --port {{ hestia_install_flags.port }} --lang {{ hestia_install_flags.lang }} -f"
-  async: 1000
-  poll: 15
+  async: '{{ hestia_timeout_install }}'
+  poll: '{{ hestia_poll_interval_install }}'
   args: 
     creates: /usr/local/hestia
   notify: reboot server

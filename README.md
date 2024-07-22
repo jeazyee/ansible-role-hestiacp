@@ -64,6 +64,10 @@ Configurations as in defaults/main.yml
     # should hestia generate a letsencrypt cert for the hostname
     hestia_generate_ssl: false
 
+    # timeout parameters for async install script task
+    hestia_timeout_install: 1000
+    hestia_poll_interval_install: 15
+
 Dependencies
 ------------
 
