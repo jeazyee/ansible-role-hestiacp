@@ -8,6 +8,7 @@ server_hostname: server.example.com
 # Initial details of hestiacp admin user
 hestia_admin_mail: admin@example.com
 hestia_admin_pw: P@ssword123
+hestia_admin_username: admin
 
 # Install flags for hestiacp install script
 # values 'yes' or 'no'
